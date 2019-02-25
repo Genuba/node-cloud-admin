@@ -1,23 +1,23 @@
 /* Create Tables */
 
-CREATE TABLE ab_core_us.ACU_TAQUE
+CREATE TABLE ab_core_us.ACU_ACCOUNT
 (
-	AQUE_AQUE serial NOT NULL,    -- Identificador unico de la tabla de acueducto.
-	AQUE_TMEASURE varchar(50) NOT NULL,    -- Unidad de medida equivalente a consumo
-	AQUE_VALUE varchar(50) NOT NULL,    -- Valor consumo segun Unidad de medida
+	ACCOUNT_ACCOUNT serial NOT NULL,    -- Identificador unico de la tabla de cuenta
+	ACCOUNT_NAME varchar(50) NOT NULL,    -- nombre de la cuenta
+	ACCOUNT_DESC varchar(50) NOT NULL    -- decripcion del tipo de cuenta
+)
+;
+
+CREATE TABLE ab_core_us.ACU_TACUE
+(
+	ACUE_ACUE serial NOT NULL,    -- Identificador unico de la tabla de acueducto.
+	ACUE_TMEASURE varchar(50) NOT NULL,    -- Unidad de medida equivalente a consumo
+	ACUE_VALUE varchar(50) NOT NULL,    -- Valor consumo segun Unidad de medida
 	COMPANY_COMPANY integer NOT NULL
 )
 ;
 
-CREATE TABLE ab_core_us.AU_ACCOUNT
-(
-	ACCOUNT_ACCOUNT serial NOT NULL,    -- Identificador unico de la tabla de cuenta
-	ACCOUNT_NAME varchar(50) NOT NULL,    -- nombre de la cuenta
-	ACCOUNT_DESC varchar(50) NOT NULL    -- decripcion del tipo de cuenta);
-)
-;
-
-CREATE TABLE ab_core_us.AU_TCOMPANY
+CREATE TABLE ab_core_us.ACU_TCOMPANY
 (
 	COMPANY_COMPANY serial NOT NULL,    -- Identificador unico de la tabla de COMPANY
 	COMPANY_IDENT varchar(50) NOT NULL,    -- numero de identificacion de la company
@@ -30,7 +30,7 @@ CREATE TABLE ab_core_us.AU_TLOGIN
 (
 	LOGIN_LOGIN serial NOT NULL,    -- Identificador unico de la tabla de logeo
 	LOGIN_USERNAME varchar(50) NOT NULL,    -- nombre de usuario
-	LOGIN_PASSWORD varchar(50) NOT NULL,    -- contrase�a de usuario
+	LOGIN_PASSWORD varchar(50) NOT NULL,    -- password de usuario
 	USER_USER integer NOT NULL
 )
 ;
@@ -51,7 +51,7 @@ CREATE TABLE ab_core_us.AU_TROL
 (
 	ROL_ROL serial NOT NULL,    -- Identificador unico de la tabla de usuario
 	ROL_NAME varchar(50) NOT NULL,    -- nombre del rol
-	ROL_DESC varchar(50) NOT NULL    -- descripcion del rol);
+	ROL_DESC varchar(50) NOT NULL    -- descripcion del rol
 )
 ;
 
@@ -60,7 +60,7 @@ CREATE TABLE ab_core_us.AU_TUSER
 	USER_USER serial NOT NULL,    -- Identificador unico de la tabla de usuario
 	USER_IDENT varchar(50) NOT NULL,    -- numero de identificacion del usuario
 	USER_FNAME varchar(50) NOT NULL,    -- nombre de la persona
-	USER_LNAME varchar(50) NOT NULL    -- apellido de la persona);
+	USER_LNAME varchar(50) NOT NULL    -- apellido de la persona
 )
 ;
 
@@ -90,36 +90,36 @@ CREATE TABLE ab_core_us.CL_TRECEIPT
 
 /* Create Primary Keys, Indexes, Uniques, Checks */
 
-ALTER TABLE ab_core_us.ACU_TAQUE ADD CONSTRAINT PK_ACU_TAQUE
-	PRIMARY KEY (AQUE_AQUE)
-;
-
-CREATE INDEX IXFK_ACU_TAQUE_AU_TCOMPANY ON ab_core_us.ACU_TAQUE (COMPANY_COMPANY ASC)
-;
-
-ALTER TABLE ab_core_us.AU_ACCOUNT ADD CONSTRAINT PK_AU_TACCOUNT
+ALTER TABLE ab_core_us.ACU_ACCOUNT ADD CONSTRAINT PK_ACU_TACCOUNT
 	PRIMARY KEY (ACCOUNT_ACCOUNT)
 ;
 
-ALTER TABLE ab_core_us.AU_TCOMPANY ADD CONSTRAINT PK_AU_TCOMPANY
+ALTER TABLE ab_core_us.ACU_TACUE ADD CONSTRAINT PK_ACU_TACUE
+	PRIMARY KEY (ACUE_ACUE)
+;
+
+CREATE INDEX IXFK_ACU_TACUE_AU_TCOMPANY ON ab_core_us.ACU_TACUE (COMPANY_COMPANY ASC)
+;
+
+ALTER TABLE ab_core_us.ACU_TCOMPANY ADD CONSTRAINT PK_ACU_TCOMPANY
 	PRIMARY KEY (COMPANY_COMPANY)
 ;
 
-CREATE INDEX IXFK_AU_TCOMPANY_AU_TACCOUNT ON ab_core_us.AU_TCOMPANY (ACCOUNT_ACCOUNT ASC)
+CREATE INDEX IXFK_ACU_TCOMPANY_ACU_TACCOUNT ON ab_core_us.ACU_TCOMPANY (ACCOUNT_ACCOUNT ASC)
 ;
 
 ALTER TABLE ab_core_us.AU_TLOGIN ADD CONSTRAINT PK_AU_TLOGIN
 	PRIMARY KEY (LOGIN_LOGIN)
 ;
 
-CREATE INDEX IXFK_AU_TLOGIN_US_USER ON ab_core_us.AU_TLOGIN (USER_USER ASC)
+CREATE INDEX IXFK_AU_TLOGIN_AU_USER ON ab_core_us.AU_TLOGIN (USER_USER ASC)
 ;
 
 ALTER TABLE ab_core_us.AU_TMEMBERSHIP ADD CONSTRAINT PK_AU_TMEMBERSHIP
 	PRIMARY KEY (MEMBERSHIP_MEMBERSHIP)
 ;
 
-CREATE INDEX IXFK_AU_TMEMBERSHIP_AU_COMPANY ON ab_core_us.AU_TMEMBERSHIP (COMPANY_COMPANY ASC)
+CREATE INDEX IXFK_AU_TMEMBERSHIP_ACU_COMPANY ON ab_core_us.AU_TMEMBERSHIP (COMPANY_COMPANY ASC)
 ;
 
 CREATE INDEX IXFK_AU_TMEMBERSHIP_AU_TROL ON ab_core_us.AU_TMEMBERSHIP (ROL_ROL ASC)
@@ -152,19 +152,37 @@ CREATE INDEX IXFK_CL_TRECEIPT_CL_TCLIENT ON ab_core_us.CL_TRECEIPT (CLIENT_CLIEN
 
 /* Create Table Comments, Sequences for Autonumber Columns */
 
-COMMENT ON TABLE ab_core_us.ACU_TAQUE
+COMMENT ON TABLE ab_core_us.ACU_ACCOUNT
+	IS 'Tabla encargada de registras los datos de las cuentas.'
+;
+
+COMMENT ON COLUMN ab_core_us.ACU_ACCOUNT.ACCOUNT_ACCOUNT
+	IS 'Identificador unico de la tabla de cuenta'
+;
+
+COMMENT ON COLUMN ab_core_us.ACU_ACCOUNT.ACCOUNT_NAME
+	IS 'nombre de la cuenta'
+;
+
+COMMENT ON COLUMN ab_core_us.ACU_ACCOUNT.ACCOUNT_DESC
+	IS 'decripcion del tipo de cuenta'
+;
+
+ 
+
+COMMENT ON TABLE ab_core_us.ACU_TACUE
 	IS 'Tabla encargada de registras los datos del acueducto.'
 ;
 
-COMMENT ON COLUMN ab_core_us.ACU_TAQUE.AQUE_AQUE
+COMMENT ON COLUMN ab_core_us.ACU_TACUE.ACUE_ACUE
 	IS 'Identificador unico de la tabla de acueducto.'
 ;
 
-COMMENT ON COLUMN ab_core_us.ACU_TAQUE.AQUE_TMEASURE
+COMMENT ON COLUMN ab_core_us.ACU_TACUE.ACUE_TMEASURE
 	IS 'Unidad de medida equivalente a consumo'
 ;
 
-COMMENT ON COLUMN ab_core_us.ACU_TAQUE.AQUE_VALUE
+COMMENT ON COLUMN ab_core_us.ACU_TACUE.ACUE_VALUE
 	IS 'Valor consumo segun Unidad de medida'
 ;
 
@@ -172,37 +190,19 @@ COMMENT ON COLUMN ab_core_us.ACU_TAQUE.AQUE_VALUE
 
  
 
-COMMENT ON TABLE ab_core_us.AU_ACCOUNT
-	IS 'Tabla encargada de registras los datos de las cuentas.'
-;
-
-COMMENT ON COLUMN ab_core_us.AU_ACCOUNT.ACCOUNT_ACCOUNT
-	IS 'Identificador unico de la tabla de cuenta'
-;
-
-COMMENT ON COLUMN ab_core_us.AU_ACCOUNT.ACCOUNT_NAME
-	IS 'nombre de la cuenta'
-;
-
-COMMENT ON COLUMN ab_core_us.AU_ACCOUNT.ACCOUNT_DESC
-	IS 'decripcion del tipo de cuenta'
-;
-
- 
-
-COMMENT ON TABLE ab_core_us.AU_TCOMPANY
+COMMENT ON TABLE ab_core_us.ACU_TCOMPANY
 	IS 'Tabla encargada de registras los datos de la company o asociacion.'
 ;
 
-COMMENT ON COLUMN ab_core_us.AU_TCOMPANY.COMPANY_COMPANY
+COMMENT ON COLUMN ab_core_us.ACU_TCOMPANY.COMPANY_COMPANY
 	IS 'Identificador unico de la tabla de COMPANY'
 ;
 
-COMMENT ON COLUMN ab_core_us.AU_TCOMPANY.COMPANY_IDENT
+COMMENT ON COLUMN ab_core_us.ACU_TCOMPANY.COMPANY_IDENT
 	IS 'numero de identificacion de la company'
 ;
 
-COMMENT ON COLUMN ab_core_us.AU_TCOMPANY.COMPANY_NAME
+COMMENT ON COLUMN ab_core_us.ACU_TCOMPANY.COMPANY_NAME
 	IS 'nombre de la company'
 ;
 
@@ -223,7 +223,7 @@ COMMENT ON COLUMN ab_core_us.AU_TLOGIN.LOGIN_USERNAME
 ;
 
 COMMENT ON COLUMN ab_core_us.AU_TLOGIN.LOGIN_PASSWORD
-	IS 'contrase�a de usuario'
+	IS 'password de usuario'
 ;
 
  

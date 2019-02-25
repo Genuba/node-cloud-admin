@@ -1,5 +1,5 @@
 -- INSTRUCCIONES
--- REEMPLAZAR EL TEXTO _AB_CORE_ CON EL NOMBRE DEL PROYECTO
+-- REEMPLAZAR EL TEXTO _ab_core_ CON EL NOMBRE DEL PROYECTO
 
 -- ********************  NOTA IMPORTANTE!!!!  ***********************
 -- *                                                                *
@@ -26,6 +26,8 @@
 -- @INSTALL_OBJECTS.sql
 \i INSTALL_OBJECTS.sql
 
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA ab_core_us TO ab_core_us;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES  IN SCHEMA ab_core_us TO ab_core_us;
 
 -- Si la ejecución del script no presenta ningún problema por favor haga
 -- COMMIT, de lo contrario haga ROLLBACK y comuniquese con ABSTRACT Inc

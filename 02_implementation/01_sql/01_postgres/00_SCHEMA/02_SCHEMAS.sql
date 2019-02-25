@@ -8,9 +8,9 @@
 -- PostgreSQL database dump
 --
 
--- database: AB_CORE
+-- database: ab_core
 
-CREATE DATABASE "AB_CORE"
+CREATE DATABASE "ab_core"
     WITH
     OWNER = ab_core_us
     ENCODING = 'UTF8'
@@ -18,7 +18,7 @@ CREATE DATABASE "AB_CORE"
     CONNECTION LIMIT = -1;
 
 -- Cambio de base de datos
-\c AB_CORE
+\c ab_core
 
 --
 -- Name: ab_core_us; Type: SCHEMA; Schema: -; Owner: ab_core_us
