@@ -7,8 +7,8 @@
 .settings/
 .springBeans
 target/
-02_implementation/02_app/node_modules/
-databases/
+node_modules/
+02_implementation/02_app/databases/
 _site/
 .idea
 *.iml
