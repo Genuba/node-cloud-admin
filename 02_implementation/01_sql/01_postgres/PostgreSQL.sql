@@ -4,29 +4,6 @@
 /*  DBMS       : PostgreSQL 						*/
 /* ---------------------------------------------------- */
 
-/* Drop Sequences for Autonumber Columns */
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
 
 /* Drop Tables */
 
@@ -90,88 +67,6 @@ DROP SEQUENCE  IF EXISTS  ab_core_us.cl_tclient_client_client_seq  CASCADE
 ;
 
 DROP SEQUENCE  IF EXISTS  ab_core_us.cl_treceipt_receipt_receipt_seq  CASCADE
-;
-
-/* Create Sequences */
-
-CREATE SEQUENCE ab_core_us.acu_account_account_account_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1
-;
-
-CREATE SEQUENCE ab_core_us.acu_tacue_acue_acue_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1
-;
-
-CREATE SEQUENCE ab_core_us.acu_taque_aque_aque_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1
-;
-
-CREATE SEQUENCE ab_core_us.acu_tcompany_company_company_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1
-;
-
-CREATE SEQUENCE ab_core_us.au_tlogin_login_login_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1
-;
-
-CREATE SEQUENCE ab_core_us.au_tmembership_membership_membership_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1
-;
-
-CREATE SEQUENCE ab_core_us.au_trol_rol_rol_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1
-;
-
-CREATE SEQUENCE ab_core_us.au_tuser_user_user_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1
-;
-
-CREATE SEQUENCE ab_core_us.cl_tclient_client_client_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1
-;
-
-CREATE SEQUENCE ab_core_us.cl_treceipt_receipt_receipt_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1
 ;
 
 /* Create Tables */

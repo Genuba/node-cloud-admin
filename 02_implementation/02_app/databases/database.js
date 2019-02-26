@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(
-    'ab_core',
-    'ab_core_us',
-    'ab_core_us',
+    'ab_core', //database name
+    'ab_core_us', //username
+    'ab_core_us', //password
     {
         dialect: 'postgres',
         host: 'localhost',
