@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 //Models
@@ -83,7 +84,7 @@ router.put('/:user_user', async (req, res) => {
 router.delete('/:user_user', async (req, res) => {
   const {user_user} = req.params;
   try{
-    await au_tuser.destroy({
+    let user = await au_tuser.destroy({
       where: {
         user_user
       }

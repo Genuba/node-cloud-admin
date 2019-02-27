@@ -8,7 +8,6 @@
 .springBeans
 target/
 node_modules/
-02_implementation/02_app/databases/
 _site/
 .idea
 *.iml

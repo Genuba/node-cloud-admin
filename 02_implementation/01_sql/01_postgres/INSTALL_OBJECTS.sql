@@ -1,10 +1,11 @@
 -- INSTALL OBJECTS...
 
+\i PostgreSQL.sql
+
 -- \i 01_SECUENCIAS/INSTALL.sql
 -- \i 02_TABLAS/INSTALL.sql
 -- \i 03_FOREIGN_KEY/INSTALL.sql
 -- \i 04_TIPOS/INSTALL.sql
 -- \i 05_FUNCIONES/INSTALL.sql
--- \i 06_DATOS/INSTALL.sql
+\i 06_DATOS/INSTALL.sql
 
-\i PostgreSQL.sql
