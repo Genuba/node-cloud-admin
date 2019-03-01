@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
 //Update
 router.put('/:user_user', async (req, res) => {
   const {user_user} = req.params;
-  let{user_ident, user_fname, user_lname} = req.body;
+  let{user_ident,user_fname,user_lname,login_username,login_password,menbership_state,rol_rol} = req.body;
   try{
     let user = await au_tuser.findAll({
       attributes: ["user_user","user_ident","user_fname","user_lname"],
@@ -73,16 +73,16 @@ router.put('/:user_user', async (req, res) => {
     });
 
     let login = await au_tlogin.findAll({
-      attributes: ["login_username","login_password","user_user"],
+      attributes: ["login_login","login_username","login_password"],
       where: {
-        user_user: user.user_user
+        user_user: user_user
       }
     })
 
     let membership = await au_tmembership.findAll({
-      attributes: ["membership_cdate","menbership_state","user_user", "rol_rol"],
+      attributes: ["membership_membership","menbership_state","rol_rol"],
       where:{
-        user_user: user.user_user
+        user_user: user_user
       }
     })
 
@@ -102,14 +102,13 @@ router.put('/:user_user', async (req, res) => {
     });
     membership.forEach(async (membership) => {
       await membership.update({
-        membership_cdate: membership_cdate ? membership_cdate : membership.membership_cdate,
         menbership_state: menbership_state ? menbership_state : membership.menbership_state,
         rol_rol         : rol_rol          ? rol_rol          : membership.rol_rol
       });
     });
     res.json({
       result: "ok",
-      data: user,
+      data: {user,login,membership},
       message: "update user successfully"
     });
   }else{
@@ -149,52 +148,6 @@ router.put('/:user_user', async (req, res) => {
   }
 });*/
 
-//Inactivate or activate user
-router.put('/:user_user', async (req, res) => {
-  const {user_user} = req.params;
-  let{user_ident, user_fname, user_lname} = req.body;
-  try{
-    let user = await au_tuser.findAll({
-      attributes: ["user_user","user_ident","user_fname","user_lname"],
-      where: {
-        user_user
-      }
-    });
-
-    let membership = await au_tmembership.findAll({
-      attributes: ["membership_email","membership_phone","menbership_state","user_user", "rol_rol"],
-      where:{
-        user_user: user.user_user
-      }
-    })
-
-  if(user.length > 0 && membership.length > 0){
-    membership.forEach(async (membership) => {
-      await membership.update({
-        menbership_state: menbership_state ? menbership_state : membership.menbership_state
-      });
-    });
-    res.json({
-      result: "ok",
-      data: user,
-      message: "update user successfully"
-    });
-  }else{
-    res.json({
-      result: "failed",
-      data: {},
-      message: "cannot find user to update"
-    });
-  }
-  }catch(err){
-    res.json({
-      result: "failed",
-      data: {},
-      message: `Update user failed. Error ${err}` 
-    });
-  }
-});
-
 //Query all data
 router.get('/', async (req, res) => {
   const {user_user} = req.params;
@@ -220,22 +173,37 @@ router.get('/', async (req, res) => {
 router.get('/:user_user', async (req, res) => {
   const {user_user} = req.params;
   try{
-    let users = await au_tuser.findAll({
+    let user = await au_tuser.findAll({
       attributes: ["user_user","user_ident","user_fname","user_lname"],
       where: {
         user_user
       }
     });
-    if(users.length > 0){
+
+    let login = await au_tlogin.findAll({
+      attributes: ["login_login","login_username","login_password"],
+      where: {
+        user_user: user_user
+      }
+    })
+
+    let membership = await au_tmembership.findAll({
+      attributes: ["membership_membership","menbership_state","rol_rol"],
+      where:{
+        user_user: user_user
+      }
+    })
+
+    if(user.length > 0 && login.length > 0 && membership.length > 0){
       res.json({
         result: "ok",
-        data: users,
+        data: {user,login,membership},
         message: "Find user successfully"
       });
     }else{
       res.json({
         result: "failed",
-        data: users,
+        data: {},
         message: "Cannot find user"
       });
     }
