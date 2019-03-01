@@ -11,7 +11,7 @@ const au_tmembership = require('../models/au_tmembership');
 
 //Insert
 router.post('/', async (req, res) => {
-  let{user_ident,user_fname,user_lname,login_username,login_password,membership_email,membership_phone,menbership_state,company_company,rol_rol} = req.body;
+  let{user_ident,user_fname,user_lname,login_username,login_password,company_company,rol_rol} = req.body;
   try{
 
     let user = await au_tuser.create({
@@ -31,15 +31,13 @@ router.post('/', async (req, res) => {
     })
 
     let membership = await au_tmembership.create({
-      membership_email,
-      membership_phone,
-      menbership_state,
       user_user: user.user_user,
       company_company,
       rol_rol
     },{
-      fields: ["membership_email","membership_phone","menbership_state","user_user", "company_company", "rol_rol"]
+      fields: ["user_user", "company_company", "rol_rol"]
     })
+
     if(user && login && membership){
       res.json({
         result: "ok",
@@ -73,12 +71,40 @@ router.put('/:user_user', async (req, res) => {
         user_user
       }
     });
-  if(user.length > 0){
+
+    let login = await au_tlogin.findAll({
+      attributes: ["login_username","login_password","user_user"],
+      where: {
+        user_user: user.user_user
+      }
+    })
+
+    let membership = await au_tmembership.findAll({
+      attributes: ["membership_cdate","menbership_state","user_user", "rol_rol"],
+      where:{
+        user_user: user.user_user
+      }
+    })
+
+  if(user.length > 0 && login.length > 0 && membership.length > 0){
     user.forEach(async (user) => {
       await user.update({
         user_ident: user_ident ? user_ident : user.user_ident,
         user_fname: user_fname ? user_fname : user.user_fname,
         user_lname: user_lname ? user_lname : user.user_lname
+      });
+    });
+    login.forEach(async (login) => {
+      await login.update({
+        login_username: login_username ? login_username : login.login_username,
+        login_password: login_password ? login_password : login.login_password
+      });
+    });
+    membership.forEach(async (membership) => {
+      await membership.update({
+        membership_cdate: membership_cdate ? membership_cdate : membership.membership_cdate,
+        menbership_state: menbership_state ? menbership_state : membership.menbership_state,
+        rol_rol         : rol_rol          ? rol_rol          : membership.rol_rol
       });
     });
     res.json({
@@ -103,7 +129,7 @@ router.put('/:user_user', async (req, res) => {
 });
 
 //Delete
-router.delete('/:user_user', async (req, res) => {
+/*router.delete('/:user_user', async (req, res) => {
   const {user_user} = req.params;
   try{
     let user = await au_tuser.destroy({
@@ -119,6 +145,52 @@ router.delete('/:user_user', async (req, res) => {
     res.json({
       result: "failed",
       message: `Delete user failed. Error ${err}` 
+    });
+  }
+});*/
+
+//Inactivate or activate user
+router.put('/:user_user', async (req, res) => {
+  const {user_user} = req.params;
+  let{user_ident, user_fname, user_lname} = req.body;
+  try{
+    let user = await au_tuser.findAll({
+      attributes: ["user_user","user_ident","user_fname","user_lname"],
+      where: {
+        user_user
+      }
+    });
+
+    let membership = await au_tmembership.findAll({
+      attributes: ["membership_email","membership_phone","menbership_state","user_user", "rol_rol"],
+      where:{
+        user_user: user.user_user
+      }
+    })
+
+  if(user.length > 0 && membership.length > 0){
+    membership.forEach(async (membership) => {
+      await membership.update({
+        menbership_state: menbership_state ? menbership_state : membership.menbership_state
+      });
+    });
+    res.json({
+      result: "ok",
+      data: user,
+      message: "update user successfully"
+    });
+  }else{
+    res.json({
+      result: "failed",
+      data: {},
+      message: "cannot find user to update"
+    });
+  }
+  }catch(err){
+    res.json({
+      result: "failed",
+      data: {},
+      message: `Update user failed. Error ${err}` 
     });
   }
 });

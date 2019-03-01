@@ -11,11 +11,8 @@ const au_tmembership = sequelize.define('au_tmembership',{
         type: Sequelize.INTEGER,
         primaryKey: true
     }, 
-	membership_email: {
-        type: Sequelize.STRING,
-    },
-	membership_phone: {
-        type: Sequelize.STRING,
+	membership_cdate: {
+        type: Sequelize.DATE,
     },
     menbership_state: {
         type: Sequelize.STRING,
