@@ -3,14 +3,17 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 //Models
-const au_tuser = require('../models/au_tuser');
+const au_tuser       = require('../models/au_tuser');
+const au_tlogin      = require('../models/au_tlogin');
+const au_tmembership = require('../models/au_tmembership');
 
 /* GET user listing. */
 
 //Insert
 router.post('/', async (req, res) => {
-  let{user_ident, user_fname, user_lname} = req.body;
+  let{user_ident,user_fname,user_lname,login_username,login_password,membership_email,membership_phone,menbership_state,company_company,rol_rol} = req.body;
   try{
+
     let user = await au_tuser.create({
       user_ident,
       user_fname,
@@ -18,10 +21,29 @@ router.post('/', async (req, res) => {
     },{
       fields: ["user_ident","user_fname","user_lname"]
     })
-    if(user){
+    
+    let login = await au_tlogin.create({
+      login_username,
+      login_password,
+      user_user: user.user_user
+    },{
+      fields: ["login_username","login_password","user_user"]
+    })
+
+    let membership = await au_tmembership.create({
+      membership_email,
+      membership_phone,
+      menbership_state,
+      user_user: user.user_user,
+      company_company,
+      rol_rol
+    },{
+      fields: ["membership_email","membership_phone","menbership_state","user_user", "company_company", "rol_rol"]
+    })
+    if(user && login && membership){
       res.json({
         result: "ok",
-        data: user,
+        data: {user,login,membership},
         message: "insert user successfully"
       });
     }else{
