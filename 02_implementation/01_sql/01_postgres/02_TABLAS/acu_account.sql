@@ -1,7 +1,7 @@
 CREATE TABLE ab_core_us.acu_account
 (
 	account_account serial NOT NULL,    -- Identificador unico de la tabla de cuenta
-	account_name varchar(50) NOT NULL,    -- nombre de la cuenta
+	account_name varchar(10) NOT NULL,    -- nombre de la cuenta
 	account_desc text NOT NULL    -- decripcion del tipo de cuenta
 )
 ;

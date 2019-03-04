@@ -4,7 +4,7 @@ CREATE TABLE ab_core_us.cl_tclient
 	client_ident varchar(50) NOT NULL,    -- numero de identificacion del cliente
 	client_fname varchar(50) NOT NULL,    -- nombre de la persona cliente.
 	client_lname varchar(50) NOT NULL,    -- apellido de la persona cliente.
-	client_mora varchar(50) NOT NULL,    -- saldo en mora del cliente
+	client_mora money NOT NULL,    -- saldo en mora del cliente
 	client_state varchar(10) NOT NULL DEFAULT 'activo',
 	company_company integer NOT NULL
 )

@@ -1,10 +1,10 @@
 CREATE TABLE ab_core_us.cl_treceipt
 (
 	receipt_receipt serial NOT NULL,    -- Identificador unico de la tabla de recibos
-	receipt_value varchar(50) NOT NULL,    -- valor del recibo.
+	receipt_value money NOT NULL,    -- valor del recibo.
 	receipt_date date NOT NULL DEFAULT CURRENT_DATE,    -- fecha de recibo
-	receipt_lastc varchar(50) NOT NULL,    -- ultima lectura de consumo en unidad de medida
-	receipt_pasc varchar(50) NOT NULL,    -- Lectura anterior de consumo segun unidad de medida.
+	receipt_lastc integer NOT NULL,    -- ultima lectura de consumo en unidad de medida
+	receipt_pasc integer NOT NULL,    -- Lectura anterior de consumo segun unidad de medida.
 	receipt_state varchar(10) NOT NULL DEFAULT 'activo',    -- estado del recibo
 	client_client integer NOT NULL
 )

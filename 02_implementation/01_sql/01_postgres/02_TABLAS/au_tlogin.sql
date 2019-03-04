@@ -1,8 +1,8 @@
 CREATE TABLE ab_core_us.au_tlogin
 (
 	login_login serial NOT NULL,    -- Identificador unico de la tabla de logeo
-	login_username varchar(50) NOT NULL,    -- nombre de usuario
-	login_password varchar(50) NOT NULL,    -- password de usuario
+	login_username varchar(30) NOT NULL,    -- nombre de usuario
+	login_password varchar(30) NOT NULL,    -- password de usuario
 	user_user integer NOT NULL
 )
 ;

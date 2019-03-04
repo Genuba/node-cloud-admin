@@ -1,9 +1,9 @@
 CREATE TABLE ab_core_us.cl_tconsum
 (
 	consum_consum serial NOT NULL,    -- Identificador unico de la tabla de usuario
-	consum_cant varchar(50) NOT NULL,    -- cantidad de consumo segun unidad de medida.
-	consum_date varchar(50) NOT NULL,    -- fecha de registro del consumo.
-	consum_state varchar(50) NOT NULL,    -- estado del consumo activo/inactivo.
+	consum_cant integer NOT NULL,    -- cantidad de consumo segun unidad de medida.
+	consum_date date NOT NULL DEFAULT CURRENT_DATE,    -- fecha de registro del consumo.
+	consum_state varchar(10) NOT NULL DEFAULT 'activo',   -- estado del consumo activo/inactivo.
 	client_client integer NOT NULL
 )
 ;

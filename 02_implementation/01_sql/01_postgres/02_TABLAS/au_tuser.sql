@@ -1,9 +1,9 @@
 CREATE TABLE ab_core_us.au_tuser
 (
 	user_user serial NOT NULL,    -- Identificador unico de la tabla de usuario
-	user_ident varchar(50) NOT NULL,    -- numero de identificacion del usuario
-	user_fname varchar(50) NOT NULL,    -- nombre de la persona
-	user_lname varchar(50) NOT NULL    -- apellido de la persona
+	user_ident varchar(30) NOT NULL,    -- numero de identificacion del usuario
+	user_fname varchar(30) NOT NULL,    -- nombre de la persona
+	user_lname varchar(30) NOT NULL    -- apellido de la persona
 )
 ;
 

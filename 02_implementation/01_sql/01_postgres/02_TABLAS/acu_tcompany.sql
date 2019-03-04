@@ -1,8 +1,8 @@
 CREATE TABLE ab_core_us.acu_tcompany
 (
 	company_company serial NOT NULL,    -- Identificador unico de la tabla de COMPANY
-	company_ident varchar(50) NOT NULL,    -- numero de identificacion de la company
-	company_name varchar(50) NOT NULL,    -- nombre de la company
+	company_ident varchar(30) NOT NULL,    -- numero de identificacion de la company
+	company_name varchar(30) NOT NULL,    -- nombre de la company
 	account_account integer NOT NULL
 )
 ;
