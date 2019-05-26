@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  server-node:
+    image: "node"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./02_implementation/02_app:/home/node/app
+    expose:
+      - "8081"
+    command: "npm install"
